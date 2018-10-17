@@ -102,15 +102,15 @@ def get_best_motifs_by_greedy_algorithm(genes, k):
     best_motifs = []
     for i in range(0, len(genes)):
         best_motifs.append(genes[i][0:k])
-    n = len(genes[0])
-    for i in range(n - k + 1):
+    for i in range(len(genes[0]) - k + 1):
         motifs = []
         motifs.append(genes[0][i:i + k])
         for j in range(1, len(genes)):
             profile = get_profile(motifs[0:j])
-            motifs.append(get_candidate_by_profile(genes[j], k, profile))
-    if get_mismatch_score(motifs) < get_mismatch_score(best_motifs):
-        best_motifs = motifs
+            candidate = get_candidate_by_profile(genes[j], k, profile)
+            motifs.append(candidate)
+        if get_mismatch_score(motifs) < get_mismatch_score(best_motifs):
+            best_motifs = motifs
     return best_motifs
 
 
